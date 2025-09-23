@@ -1,5 +1,5 @@
 "use client";
-import Footer from "@/app/conponents/Footer";
+import Footer from "@/app/components/Footer";
 import UserProfile from "./UserProfile";
 import UserRecipeList from "./UserRecipeList";
 import UserLogoutButton from "./UserLogoutButton";

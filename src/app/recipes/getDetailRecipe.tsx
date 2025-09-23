@@ -4,16 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FiCameraOff } from "react-icons/fi";
-import RecipeHeader from "@/app/conponents/RecipeHeader";
-import Footer from "@/app/conponents/Footer";
+import RecipeHeader from "@/app/components/RecipeHeader";
+import Footer from "@/app/components/Footer";
 import { Descript, DetailRecipe, Ingredient } from "@/app/types";
 import Cook from "./cook/Cook";
 import { WiTime4 } from "react-icons/wi";
-import FavoriteButton from "../conponents/FavoriteButton";
-import IngredientItem from "../conponents/IngredientItem";
-import DescriptItem from "../conponents/DescriptItem";
+import FavoriteButton from "../components/FavoriteButton";
+import IngredientItem from "../components/IngredientItem";
+import DescriptItem from "../components/DescriptItem";
 import { PiMicrophoneBold } from "react-icons/pi";
-import LoadingComponent from "../conponents/LoadingDataFetch";
+import LoadingComponent from "../components/LoadingDataFetch";
 
 export default function RecipeDetailClient({
   recipe,
