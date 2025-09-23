@@ -3,15 +3,13 @@ import { getDetailRecipebyId } from "@/app/utils/supabaseFunctionsNew";
 import RecipeDetailClient from "./getDetailRecipe";
 
 export default async function RecipeIdPage({
-  params,
   searchParams,
 }: {
-  params: { recipe_id: number };
-  searchParams: { from: string };
+  searchParams: { recipeId: string; from: "/" };
 }) {
   let recipeData;
   try {
-    recipeData = await getDetailRecipebyId(params.recipe_id);
+    recipeData = await getDetailRecipebyId(searchParams.recipeId);
   } catch (error: any) {
     if (error.code === "404") {
       notFound();
@@ -19,12 +17,11 @@ export default async function RecipeIdPage({
     throw error;
   }
 
-  // 取得したデータをクライアントコンポーネントにpropsとして渡します
   return (
     <RecipeDetailClient
       recipe={recipeData}
-      params={params}
-      searchParams={searchParams}
+      recipeId={searchParams.recipeId}
+      from={searchParams.from}
     />
   );
 }

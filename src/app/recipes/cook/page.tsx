@@ -60,14 +60,13 @@ const Cook = ({
   params,
   searchParams,
 }: {
-  params: { recipe_id: number };
+  params: { recipe_id: string };
   searchParams: { from?: string };
 }) => {
   const [title, setTitle] = useState<string>(""); // 料理画面 上部タイトル
   const [howMany, setHowMany] = useState<string>(""); // 材料表示 何人前
   const [descript, setDescript] = useState<Descript[]>([]); // レシピの説明文 データベースから取得
   const [ingredient, setIngredient] = useState<Ingredient[]>([]); // 材料 データベースから取得
-
   // データベースからデータの取得
   useEffect(() => {
     const getRecipes = async () => {

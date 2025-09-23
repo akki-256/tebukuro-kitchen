@@ -17,16 +17,14 @@ import LoadingComponent from "../conponents/LoadingDataFetch";
 
 export default function RecipeDetailClient({
   recipe,
-  params,
-  searchParams,
+  recipeId,
+  from,
 }: {
   recipe: DetailRecipe;
-  params: { recipe_id: number };
-  searchParams: { from?: string };
+  recipeId: string;
+  from: string;
 }) {
   const [inCook, setInCook] = useState(false);
-  const from = searchParams?.from || "/";
-  // 'list' というstateの代わりに、propsから受け取った 'recipe' を使います
   const list = recipe;
 
   if (!list) return <LoadingComponent />;
@@ -148,23 +146,28 @@ export default function RecipeDetailClient({
               </section>
             </div>
 
-            <button
-              onClick={() => setInCook(true)}
-              className="mx-auto mt-8 flex w-64 items-center justify-center gap-1 rounded-xl bg-orange-400 py-3 font-semibold text-white shadow-md hover:bg-orange-500"
-            >
-              <PiMicrophoneBold className="size-[18px]" />
-              調理を開始する
-            </button>
+            <div className="flex">
+              <button
+                onClick={() => setInCook(true)}
+                className="mx-auto mt-8 flex w-64 items-center justify-center gap-1 rounded-xl bg-orange-400 py-3 font-semibold text-white shadow-md hover:bg-orange-500"
+              >
+                <PiMicrophoneBold className="size-[18px]" />
+                調理を開始する
+              </button>
+
+              <button
+                onClick={() => setInCook(true)}
+                className="mx-auto mt-8 flex w-64 items-center justify-center gap-1 rounded-xl bg-blue-500 py-3 font-semibold text-white shadow-md hover:bg-blue-600"
+              >
+                他の料理と一緒に調理する
+              </button>
+            </div>
           </main>
 
           <Footer pathName="/" />
         </div>
       ) : (
-        <Cook
-          params={params}
-          searchParams={searchParams}
-          setInCook={setInCook}
-        />
+        <Cook recipeId={recipeId} from={from} setInCook={setInCook} />
       )}
     </>
   );

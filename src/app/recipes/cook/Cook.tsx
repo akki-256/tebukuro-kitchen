@@ -56,12 +56,12 @@ const ModalContainer = ({ children }: { children: React.JSX.Element }) => {
 };
 
 const Cook = ({
-  params,
-  searchParams,
+  recipeId,
+  from,
   setInCook,
 }: {
-  params: { recipe_id: number };
-  searchParams: { from?: string };
+  recipeId: string;
+  from: string;
   setInCook: React.Dispatch<SetStateAction<boolean>>;
 }) => {
   const [title, setTitle] = useState<string>(""); // 料理画面 上部タイトル
@@ -72,16 +72,16 @@ const Cook = ({
   // データベースからデータの取得
   useEffect(() => {
     const getRecipes = async () => {
-      const rec = await getRecipesbyId(params.recipe_id);
-      const desc = await getByDescriptId(params.recipe_id);
-      const ing = await getByIngredientId(params.recipe_id);
+      const rec = await getRecipesbyId(recipeId);
+      const desc = await getByDescriptId(recipeId);
+      const ing = await getByIngredientId(recipeId);
       setTitle(rec[0].name);
       rec[0].howmany ? setHowMany(rec[0].howmany) : setHowMany("");
       setDescript(desc);
       setIngredient(ing);
     };
     getRecipes();
-  }, [params.recipe_id]);
+  }, [recipeId]);
   const length = descript.length; // 説明文のページ数
 
   const [page, setPage] = useState(0); //現在のページ（番号）
@@ -121,13 +121,8 @@ const Cook = ({
   ) => {
     num == page - 1 ? setPage(num) : setPage(num + 1);
   };
-
-  // ヘッダーの戻るボタン用
-  const from = searchParams?.from;
   const recipePage =
-    from === "favorites"
-      ? `/${params.recipe_id}?from=favorites`
-      : `/${params.recipe_id}`;
+    from === "favorites" ? `/${recipeId}?from=favorites` : `/${recipeId}`;
 
   const imageSrc = descript[page]?.image_url ?? ""; // 画像のＵＲＬ
 

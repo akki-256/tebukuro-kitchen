@@ -68,7 +68,7 @@ export const getPageRecipes = async (
 };
 
 // レシピのidより1つのレシピ取得
-export const getRecipesbyId = async (id: number) => {
+export const getRecipesbyId = async (id: string) => {
   const recipe = await supabase.from("recipes").select("*").eq("id", id);
   if (recipe.error) {
     console.error("supabaseエラー", recipe.error);
@@ -122,7 +122,7 @@ export const deleteRecipe = async (id: number) => {
   await supabase.from("recipes").delete().eq("id", id);
 };
 // レシピのidより材料取得
-export const getByIngredientId = async (recipe_id: number) => {
+export const getByIngredientId = async (recipe_id: string) => {
   const ingredients: PostgrestSingleResponse<Ingredient[]> = await supabase
     .from("ingredients")
     .select("*")
@@ -208,7 +208,7 @@ export const deleteIngredient = async (id: number) => {
 };
 
 // レシピのidより作り方取得
-export const getByDescriptId = async (recipe_id: number) => {
+export const getByDescriptId = async (recipe_id: string) => {
   const descripts: PostgrestSingleResponse<Descript[]> = await supabase
     .from("descripts")
     .select("*")
@@ -415,7 +415,8 @@ export const getImageUrl = async (filePath: string) => {
   return imageUrl + "?v=" + timeStamp;
 };
 // レシピのidより1つのレシピ詳細取得
-export const getDetailRecipebyId = async (id: number) => {
+export const getDetailRecipebyId = async (id: string) => {
+  console.log("recipeId",id)
   const detailRecipe: PostgrestSingleResponse<DetailRecipe> = await supabase
     .from("recipes")
     .select("*, descripts(*), ingredients(*), profiles(name, avatar_url,id)")

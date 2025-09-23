@@ -5,8 +5,8 @@ import { useInView } from "react-intersection-observer";
 import LoadingComponent from "./LoadingDataFetch";
 import Error from "next/error";
 import { PAGE_SIZE_SWR } from "../utils/supabaseFunctionsNew";
-import { useSeachKW } from "./Header/SearchBar";
 import { FiHeart } from "react-icons/fi";
+import { useSearchKW } from "../utils/useStore";
 
 type propsType = {
   materialKey: string; //表示管理用 一意のキーを指定する
@@ -14,7 +14,7 @@ type propsType = {
 };
 
 const AddRecipeCords = ({ materialKey, fetcher }: propsType) => {
-  const SearchKW = useSeachKW((state) => state.searchKW);
+  const SearchKW = useSearchKW((state) => state.searchKW);
   const { ref, inView: isScrollEnd } = useInView();
 
   const getKey = (pageIndex: number, previousPageData: Recipe[][] | null) => {
