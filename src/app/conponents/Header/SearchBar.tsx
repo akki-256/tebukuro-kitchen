@@ -1,19 +1,19 @@
+import { useSearchKW } from "@/app/utils/useStore";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { create } from "zustand";
 
-type SearchStore = {
-  searchKW: string | null;
-  setSearchKW: (kW: string) => void;
-};
+// type SearchStore = {
+//   searchKW: string | null;
+//   setSearchKW: (kW: string) => void;
+// };
 
-export const useSeachKW = create<SearchStore>((set) => ({
-  searchKW: "",
-  setSearchKW: (kW: string) => set({ searchKW: kW }),
-}));
+// export const useSearchKW = create<SearchStore>((set) => ({
+//   searchKW: "",
+//   setSearchKW: (kW: string) => set({ searchKW: kW }),
+// }));
 
 const SearchBar = () => {
-  const { searchKW, setSearchKW } = useSeachKW();
+  const { searchKW, setSearchKW } = useSearchKW();
   const [input, setInput] = useState<string>(searchKW || "");
 
   const SeachRecipe = (e: React.KeyboardEvent<HTMLInputElement>) => {

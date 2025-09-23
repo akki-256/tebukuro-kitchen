@@ -13,7 +13,10 @@ type ArticleCardProps = {
 const ArticleCard = ({ recipe, from }: ArticleCardProps) => {
   return (
     <Link
-      href={`/${recipe.id}${from ? `?from=${from}` : ""}`}
+      href={{
+        pathname: "/recipes",
+        query: { recipeId: recipe.id, from: from },
+      }}
       className="block overflow-hidden rounded-xl border border-orange-200"
     >
       <div className="relative flex aspect-[4/3] items-center justify-center bg-gray-100">
