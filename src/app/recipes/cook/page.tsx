@@ -15,8 +15,8 @@ import IngModal from "./IngModal";
 import TimerModal from "./TimerModal";
 import YtModal from "./YtModal";
 import VoiceSettingsModal from "./VoiceSettingsModal";
-import RecipeHeader from "@/app/conponents/RecipeHeaderOld";
-import Speech from "@/app/conponents/SpeechOld";
+import RecipeHeader from "@/app/components/RecipeHeaderOld";
+import Speech from "@/app/components/SpeechOld";
 import { Descript, Ingredient } from "@/app/types";
 import {
   getByDescriptId,

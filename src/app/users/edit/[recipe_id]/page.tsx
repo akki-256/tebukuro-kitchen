@@ -8,7 +8,7 @@ import { BiPlus } from "react-icons/bi";
 // import Link from "next/link";
 import DescriptInputItem from "./DescriptInputItem";
 import IngredientInputItem from "./IngredientInputItem";
-import Footer from "@/app/conponents/Footer";
+import Footer from "@/app/components/Footer";
 import { updateRecipeImage } from "../../../utils/supabaseFncUpdate";
 import {
   compressImage,

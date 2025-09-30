@@ -8,9 +8,9 @@ import { SubmitHandler } from "react-hook-form";
 import { BiPlus } from "react-icons/bi";
 import { TbCameraPlus } from "react-icons/tb";
 
-import DescriptInputItem from "@/app/conponents/registration/DescriptInputItem";
-import IngredientInputItem from "@/app/conponents/registration/IngredientInputItem";
-import Footer from "@/app/conponents/Footer";
+import DescriptInputItem from "@/app/components/registration/DescriptInputItem";
+import IngredientInputItem from "@/app/components/registration/IngredientInputItem";
+import Footer from "@/app/components/Footer";
 import { updateRecipeImage } from "@/app/utils/supabaseFncUpdate";
 import {
   addRecipe,

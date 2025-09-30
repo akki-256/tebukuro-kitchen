@@ -1,8 +1,8 @@
 "use client";
 
-import Footer from "@/app/conponents/Footer";
-import Header from "../conponents/Header/Header";
-import AddRecipeCords from "../conponents/AddRecipeCords";
+import Footer from "@/app/components/Footer";
+import Header from "../components/Header/Header";
+import AddRecipeCords from "../components/AddRecipeCords";
 import { favoriteFetcher, searchFavFeatcher } from "../utils/supabase/recipe";
 import { useSearchKW } from "../utils/useStore";
 
