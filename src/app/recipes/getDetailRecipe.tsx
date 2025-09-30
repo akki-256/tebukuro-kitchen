@@ -14,6 +14,7 @@ import IngredientItem from "../components/IngredientItem";
 import DescriptItem from "../components/DescriptItem";
 import { PiMicrophoneBold } from "react-icons/pi";
 import LoadingComponent from "../components/LoadingDataFetch";
+import { cookRecipeTogether } from "../utils/useStore";
 
 export default function RecipeDetailClient({
   recipe,
@@ -25,6 +26,12 @@ export default function RecipeDetailClient({
   from: string;
 }) {
   const [inCook, setInCook] = useState(false);
+  const {
+    // selectingTogether,
+    // togetherRecipeId,
+    setSelectingTogether,
+    addTogetherRecipeId,
+  } = cookRecipeTogether();
   const list = recipe;
 
   if (!list) return <LoadingComponent />;
@@ -146,22 +153,24 @@ export default function RecipeDetailClient({
               </section>
             </div>
 
-            <div className="flex">
-              <button
-                onClick={() => setInCook(true)}
-                className="mx-auto mt-8 flex w-64 items-center justify-center gap-1 rounded-xl bg-orange-400 py-3 font-semibold text-white shadow-md hover:bg-orange-500"
-              >
-                <PiMicrophoneBold className="size-[18px]" />
-                調理を開始する
-              </button>
+            <button
+              onClick={() => setInCook(true)}
+              className="mx-auto mt-8 flex w-64 items-center justify-center gap-1 rounded-xl bg-orange-400 py-3 font-semibold text-white shadow-md hover:bg-orange-500"
+            >
+              <PiMicrophoneBold className="size-[18px]" />
+              調理を開始する
+            </button>
 
-              <button
-                onClick={() => setInCook(true)}
-                className="mx-auto mt-8 flex w-64 items-center justify-center gap-1 rounded-xl bg-blue-500 py-3 font-semibold text-white shadow-md hover:bg-blue-600"
-              >
-                他の料理と一緒に調理する
-              </button>
-            </div>
+            <Link
+              className="mx-auto mt-8 flex w-64 items-center justify-center gap-1 rounded-xl bg-blue-500 py-3 font-semibold text-white shadow-md hover:bg-blue-600"
+              onClick={() => {
+                setSelectingTogether(true);
+                addTogetherRecipeId(recipeId);
+              }}
+              href={"/"}
+            >
+              他の料理と一緒に調理する
+            </Link>
           </main>
 
           <Footer pathName="/" />

@@ -13,15 +13,17 @@ export const useSearchKW =create<searchStore>((set)=>({
 
 //作るレシピを複数選択する時のrecipeIdを共有
 type recipeIdtype = {
-    selecting:boolean;
-    recipeId : string[];
-    setRecipeId :( addRecipeId : string) => void;
+    selectingTogether:boolean;
+    togetherRecipeId : string[];
+    setSelectingTogether:(selecting:boolean)=>void;
+    addTogetherRecipeId :( addRecipeId : string) => void;
 }
-export const selectingRecipeStore = create<recipeIdtype>((set)=>({
-    selecting :false,
-    recipeId:[],
-    setRecipeId : ( addRecipeId : string ) =>
+export const cookRecipeTogether = create<recipeIdtype>((set)=>({
+    selectingTogether :false,
+    togetherRecipeId:[],
+    setSelectingTogether : (selecting) => set({ selectingTogether : selecting }),
+    addTogetherRecipeId : ( addRecipeId : string ) =>
         set((state)=> ({
-            recipeId:[...state.recipeId,addRecipeId]
+            togetherRecipeId:[...state.togetherRecipeId,addRecipeId]
         }))
 }))

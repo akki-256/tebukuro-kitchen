@@ -73,32 +73,3 @@ export const searchFavFeatcher = async (key: string): Promise<Recipe[]> => {
   if (error) console.error(error);
   return data ?? ([] as Recipe[]);
 };
-
-// export const getAllUserRecipesByID = async (user_id: string) => {
-//   const user_UUID = await exchangeIDtoUUID(user_id);
-//   if (!user_UUID) {
-//     console.error("ユーザーのUUIDが取得できませんでした");
-//     return [] as Recipe[];
-//   }
-//   const { data, error } = await supabase.rpc("get_user_recipes", {
-//     user_id: user_UUID,
-//   });
-//   if (error) {
-//     console.error("ユーザーのレシピ取得中にエラー", error);
-//   }
-//   return data as Recipe[];
-// };
-
-// export const getAllUserRecipesByUUID = async (user_UUID: string) => {
-//   if (!user_UUID) {
-//     console.error("ユーザーのUUIDが取得できませんでした");
-//     return [] as Recipe[];
-//   }
-//   const { data, error } = await supabase.rpc("get_user_recipes", {
-//     user_id: user_UUID,
-//   });
-//   if (error) {
-//     console.error("ユーザーのレシピ取得中にエラー", error);
-//   }
-//   return data as Recipe[];
-// };
