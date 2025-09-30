@@ -42,7 +42,7 @@ const AddRecipeCords = ({ materialKey, fetcher }: propsType) => {
   if (error)
     return <Error statusCode={500} title="データの取得に失敗しました" />;
 
-  if (isEmpty) {
+  if (isEmpty && materialKey === "favorites" && SearchKW === "") {
     return (
       <section className="flex flex-grow flex-col items-center justify-center gap-2 bg-[#FFFBF4] text-black">
         <FiHeart size={55} className="text-gray-500" />
