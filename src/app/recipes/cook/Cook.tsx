@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 
 import { FaArrowLeft, FaArrowRight, FaDoorOpen } from "react-icons/fa";
 import { FiCameraOff, FiVolume2 } from "react-icons/fi";
-import { MdOutlineTimer } from "react-icons/md";
+import { MdOutlineQuestionMark, MdOutlineTimer } from "react-icons/md";
 import { PiNoteDuotone } from "react-icons/pi";
 
 import GuideModal from "./GuideModal";
@@ -14,7 +14,6 @@ import IngModal from "./IngModal";
 import TimerModal from "./TimerModal";
 import YtModal from "./YtModal";
 import VoiceSettingsModal from "./VoiceSettingsModal";
-import RecipeHeader from "@/app/components/RecipeHeader";
 import Speech from "@/app/components/Speech";
 import { Descript, Ingredient } from "@/app/types";
 import {
@@ -23,6 +22,8 @@ import {
   getRecipesbyId,
 } from "@/app/utils/supabaseFunctionsNew";
 import { getVoice } from "@/app/utils/text-to-speech";
+import { IoIosArrowBack } from "react-icons/io";
+import RecipeHeaderBase from "@/app/components/RecipeHeaderBase";
 
 //丸を描画する length=丸の数 page=塗りつぶし判定用ページ数
 const Circle = ({ length, page }: { length: number; page: number }) => {
@@ -57,7 +58,7 @@ const ModalContainer = ({ children }: { children: React.JSX.Element }) => {
 
 const Cook = ({
   recipeId,
-  from,
+  // from,
   setInCook,
 }: {
   recipeId: string;
@@ -121,8 +122,6 @@ const Cook = ({
   ) => {
     num == page - 1 ? setPage(num) : setPage(num + 1);
   };
-  const recipePage =
-    from === "favorites" ? `/${recipeId}?from=favorites` : `/${recipeId}`;
 
   const imageSrc = descript[page]?.image_url ?? ""; // 画像のＵＲＬ
 
@@ -230,9 +229,28 @@ const Cook = ({
     };
   }, [descript, page, voiceSpeed, voiceEnabled, repeatFlag, voiceVolume]);
 
+  const backHereArrow = (
+    <button
+      onClick={() => setInCook(false)}
+      className="absolute left-5 text-3xl"
+    >
+      <IoIosArrowBack fill="white" />
+    </button>
+  );
+
+  const displayGuideButtun = (
+    <button
+      onClick={() => setGuideModalOpen(!guideModalOpen)}
+      className="absolute right-5 bg-transparent font-bold"
+    >
+      <MdOutlineQuestionMark className="mx-auto h-6 w-6" />
+      <p>ガイド</p>
+    </button>
+  );
+
   return (
     <>
-      <div className="fixed inset-x-0 bottom-0 top-0 -z-50 bg-white">
+      <div className="fixed inset-x-0 bottom-0 top-0 -z-50 bg-white text-white">
         <Speech
           next={next}
           back={back}
@@ -254,18 +272,12 @@ const Cook = ({
           setVoiceVolume={setVoiceVolume}
           setRepeatFlag={setRepeatFlag}
         />
-        <div className="relative">
-          <RecipeHeader
-            bgColor="bg-orange-400"
-            textColor="text-white"
-            title={title}
-            link={recipePage}
-            iconFill="white"
-            guideModalOpen={guideModalOpen}
-            setGuideModalOpen={setGuideModalOpen}
-            setInCook={setInCook}
-          />
-        </div>
+        <RecipeHeaderBase
+          title={title}
+          bgColor="orange-400"
+          backPageArrow={backHereArrow}
+          displayGuideButtun={displayGuideButtun}
+        />
 
         <div className="flex content-center justify-center">
           {imageSrc != "" ? (

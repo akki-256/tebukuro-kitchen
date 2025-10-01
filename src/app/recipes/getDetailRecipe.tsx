@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FiCameraOff } from "react-icons/fi";
-import RecipeHeader from "@/app/components/RecipeHeader";
 import Footer from "@/app/components/Footer";
 import { Descript, DetailRecipe, Ingredient } from "@/app/types";
 import Cook from "./cook/Cook";
@@ -15,6 +14,9 @@ import DescriptItem from "../components/DescriptItem";
 import { PiMicrophoneBold } from "react-icons/pi";
 import LoadingComponent from "../components/LoadingDataFetch";
 import { cookRecipeTogether } from "../utils/useStore";
+import RecipeHeaderBase from "../components/RecipeHeaderBase";
+import { IoIosArrowBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 export default function RecipeDetailClient({
   recipe,
@@ -33,21 +35,25 @@ export default function RecipeDetailClient({
     addTogetherRecipeId,
   } = cookRecipeTogether();
   const list = recipe;
+  const router = useRouter();
+
+  const backHereArrow = (
+    <button className="absolute left-5 text-3xl" onClick={() => router.back()}>
+      <IoIosArrowBack fill={"black"} />
+    </button>
+  );
 
   if (!list) return <LoadingComponent />;
 
   return (
     <>
       {!inCook ? (
-        <div className="bg-orange-primary contain-paint">
-          <RecipeHeader
-            bgColor="bg-white"
-            textColor="text-black"
+        // <div className="contain-paint [&_header]:bg-orange-primary">こういうbgの指定の仕方もある
+        <div className="contain-paint [&_header]:bg-orange-primary">
+          <RecipeHeaderBase
             title={list.name}
-            link={from === "favorites" ? "/favorites" : "/"}
-            iconFill="black"
-            inCook={inCook}
-            setInCook={setInCook}
+            bgColor="orange-primary"
+            backPageArrow={backHereArrow}
           />
 
           <main className="min-h-[calc(100vh-150px)] pb-10">
@@ -169,7 +175,8 @@ export default function RecipeDetailClient({
               }}
               href={"/"}
             >
-              他の料理と一緒に調理する
+              TODO選択したレシピを解放すること
+              {/* 他の料理と一緒に調理する */}
             </Link>
           </main>
 
