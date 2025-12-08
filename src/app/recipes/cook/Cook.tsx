@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { FaArrowLeft, FaArrowRight, FaDoorOpen } from "react-icons/fa";
-import { FiCameraOff, FiVolume2 } from "react-icons/fi";
+import { FiVolume2 } from "react-icons/fi";
 import { MdOutlineQuestionMark, MdOutlineTimer } from "react-icons/md";
 import { PiNoteDuotone } from "react-icons/pi";
 
@@ -24,29 +23,7 @@ import {
 import { getVoice } from "@/app/utils/text-to-speech";
 import { IoIosArrowBack } from "react-icons/io";
 import RecipeHeaderBase from "@/app/components/RecipeHeaderBase";
-
-//丸を描画する length=丸の数 page=塗りつぶし判定用ページ数
-const Circle = ({ length, page }: { length: number; page: number }) => {
-  return (
-    <div className="text-black">
-      {page + 1 <= 10 ? (
-        <>
-          <span className="m-2 rounded-full bg-orange-400 p-1 px-2 text-white">
-            {page + 1}
-          </span>
-          / {length}
-        </>
-      ) : (
-        <>
-          <span className="m-2 rounded-full bg-orange-400 p-1 px-1 text-white">
-            {page + 1}
-          </span>
-          / {length}
-        </>
-      )}
-    </div>
-  );
-};
+import { DisplayStep } from "./DisplayStep";
 
 const ModalContainer = ({ children }: { children: React.JSX.Element }) => {
   const container = document.getElementById("container");
@@ -122,8 +99,6 @@ const Cook = ({
   ) => {
     num == page - 1 ? setPage(num) : setPage(num + 1);
   };
-
-  const imageSrc = descript[page]?.image_url ?? ""; // 画像のＵＲＬ
 
   // --- Web Audio API関連の参照 ---
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -250,7 +225,7 @@ const Cook = ({
 
   return (
     <>
-      <div className="fixed inset-x-0 bottom-0 top-0 -z-50 bg-white text-white">
+      <div className="fixed inset-x-0 bottom-0 top-0 z-50 bg-white text-white">
         <Speech
           next={next}
           back={back}
@@ -272,6 +247,7 @@ const Cook = ({
           setVoiceVolume={setVoiceVolume}
           setRepeatFlag={setRepeatFlag}
         />
+
         <RecipeHeaderBase
           title={title}
           bgColor="orange-400"
@@ -279,34 +255,9 @@ const Cook = ({
           displayGuideButtun={displayGuideButtun}
         />
 
-        <div className="flex content-center justify-center">
-          {imageSrc != "" ? (
-            <div className="relative h-[42vh] w-[100vw] image-mid:h-[25vh] image-sml:h-[20vh]">
-              <Image
-                src={imageSrc}
-                alt={title}
-                fill
-                className="object-contain shadow-lg"
-                onError={() => console.error("Image failed to load")}
-              />
-            </div>
-          ) : (
-            <div className="h-[42vh] w-[100vw] content-center bg-gray-100 shadow-lg image-mid:h-[25vh] image-sml:h-[20vh]">
-              <div className="w-full">
-                <FiCameraOff size={40} stroke="#737373" className="mx-auto" />
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="mb-4 ml-4 mt-6 image-mid:mb-2 image-mid:mt-5 image-sml:mb-0 image-sml:mt-2">
-          <Circle length={length} page={page} />
-        </div>
-        <div
-          id="desc"
-          className="mx-5 break-words text-left font-mono text-2xl font-black text-black"
-        >
-          {descript[page]?.text ?? "読み込み中・・・"}
-        </div>
+        {/* 問題のコンポーネント */}
+        <DisplayStep descript={descript[page]} pageIndex={page} />
+
         <button
           onClick={() => setVoiceSettingsModalOpen(!voiceSettingsModalOpen)}
           className="fixed bottom-[4.5rem] right-4 rounded-full bg-orange-50 p-2 shadow-lg"
@@ -327,6 +278,7 @@ const Cook = ({
               />
             </ModalContainer>
           )}
+
           {ytModalOpen && (
             <ModalContainer>
               <YtModal
@@ -346,6 +298,7 @@ const Cook = ({
               />
             </ModalContainer>
           )}
+
           <TimerModal
             timerModalOpen={timerModalOpen}
             modalClose={() => setTimerModalOpen(false)}
@@ -355,6 +308,7 @@ const Cook = ({
             setStart={setTimerStart}
             timerReset={timerReset}
           />
+
           {voiceSettingsModalOpen && (
             <VoiceSettingsModal
               modalClose={() => {

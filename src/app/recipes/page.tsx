@@ -5,7 +5,7 @@ import RecipeDetailClient from "./getDetailRecipe";
 export default async function RecipeIdPage({
   searchParams,
 }: {
-  searchParams: { recipeId: string; from: "/" };
+  searchParams: { recipeId: string; from: "/" }; //常にホームから来てることになってる？
 }) {
   let recipeData;
   try {
